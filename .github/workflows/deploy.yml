@@ -35,17 +35,6 @@ jobs:
       # Double check huggingface_hub availability
       # (notamment huggingface_hub, Streamlit, etc.).
 
-    - name: Load the data loader
-      run: python scripts/data_loader.py
-      # Étape 4 : Exécute le script de prétraitement des données 
-      # pour charger et nettoyer les données.
-
-    - name: Load gru model
-      run: python scripts/gru_model.py
-
-    - name: Load neural prophet model
-      run: python scripts/neural_prophet_model.py
-
     - name: Push to Hugging Face Hub
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }} 
