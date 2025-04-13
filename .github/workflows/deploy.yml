@@ -65,7 +65,7 @@ jobs:
 
     - name: Push to Hugging Face Hub
       env:
-        HF_TOKEN: ${{ secrets.TOKEN }}
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         # Étape 4 : Utilise la librairie huggingface_hub pour :
         #  1) Créer un Space (si inexistant) 
@@ -74,7 +74,7 @@ jobs:
         api = HfApi(token='$HF_TOKEN'); \
 
         create_repo(
-            repo_id='Hiroshi99/cc_groupe',
+            repo_id='TeKuV/cc_rnn',
             repo_type='space',
             space_sdk='streamlit',
             exist_ok=True,
@@ -82,7 +82,7 @@ jobs:
         ); \
         api.upload_folder(
             folder_path='.', 
-            repo_id='Hiroshi99/cc_groupe', 
+            repo_id='TeKuV/cc_rnn', 
             repo_type='space', 
             commit_message='Auto-deploy from GitHub Actions'
         )"
