@@ -1,0 +1,94 @@
+name: CI/CD with Hugging Face Hub
+
+on:
+  # Déclenche le workflow sur chaque push dans la branche "main".
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    # Utilise un environnement Ubuntu pour exécuter les étapes du workflow.
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      # Étape 1 : Récupère (clone) le code de la branche actuelle 
+      # afin que les étapes suivantes puissent y accéder.
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11.5"
+      # Étape 2 : Configure Python 3.11.5 dans l'environnement GitHub Actions 
+      # pour installer et exécuter du code Python.
+
+    - name: Install Git LFS
+      run: |
+        git lfs install
+        git lfs fetch --all
+        git lfs checkout
+        git lfs pull
+      # Étape 2.1 : Installe Git LFS pour gérer les fichiers volumineux 
+      # (par exemple, les modèles de Machine Learning) stockés dans le dépôt.
+
+    - name: Verify LFS Checkout
+      run: |
+        echo "Listing data directory:"
+        ls -lh data/
+        echo "First 10 lines of diamonds.csv:"
+        head -n 10 data/diamonds.csv
+      # Étape 2.2 : Vérifie que les fichiers Git LFS ont été correctement récupérés 
+      # et peuvent être utilisés dans les étapes suivantes.
+
+    - name: Install Hugging Face Hub
+      run: pip install huggingface_hub
+      # Étape 2.3 : Installer manuellement huggingface_hub pour les commandes subsequentes.
+
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install huggingface_hub
+      # Étape 3 : Installe les dépendances listées dans requirements.txt
+      # Double check huggingface_hub availability
+      # (notamment huggingface_hub, Streamlit, etc.).
+
+    - name: Load and preprocess data
+      run: python scripts/load_data.py
+      # Étape 4 : Exécute le script de prétraitement des données 
+      # pour charger et nettoyer les données.
+
+    - name: Train models
+      run: python scripts/train_model.py
+      # Étape 5 : Exécute le script d'entraînement des modèles 
+      # pour créer des modèles de Machine Learning.
+
+    - name: Push to Hugging Face Hub
+      env:
+        HF_TOKEN: ${{ secrets.TOKEN }}
+      run: |
+        # Étape 4 : Utilise la librairie huggingface_hub pour :
+        #  1) Créer un Space (si inexistant) 
+        #  2) Uploader le contenu du repo vers ce Space
+        python -c "from huggingface_hub import HfApi, create_repo; \
+        api = HfApi(token='$HF_TOKEN'); \
+
+        create_repo(
+            repo_id='Hiroshi99/cc_groupe',
+            repo_type='space',
+            space_sdk='streamlit',
+            exist_ok=True,
+            private=False
+        ); \
+        api.upload_folder(
+            folder_path='.', 
+            repo_id='Hiroshi99/cc_groupe', 
+            repo_type='space', 
+            commit_message='Auto-deploy from GitHub Actions'
+        )"
+    
+      # - HF_TOKEN est un secret stocké dans votre dépôt GitHub (Settings > Secrets and variables > Actions).
+      # - "repo_id" est le nom de votre Space sur Hugging Face.
+      # - "space_sdk='streamlit'" précise que ce Space est un projet Streamlit.
+      # - "upload_folder" envoie tous les fichiers du dossier actuel (.) vers le Space.
+      # - "commit_message" décrit la mise à jour effectuée.
