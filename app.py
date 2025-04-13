@@ -224,8 +224,8 @@ if __name__ == "__main__":
     st.sidebar.markdown(
         """
         ---
-        **Auteur** : TEUGA KETCHA Ulrich
-        **Version** : 1.0  
-        **Contact** : github.com/TeKuV  
+        **Auteur** : TEUGA KETCHA Ulrich \n
+        **Version** : 1.0  \n
+        **Contact** : github.com/TeKuV  \n
     """
     )
