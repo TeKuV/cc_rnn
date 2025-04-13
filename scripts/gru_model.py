@@ -1,7 +1,7 @@
 import os
 import numpy as np
-from data_loader import DataLoader
-from gru_processor import GRUPreprocessor
+from scripts.data_loader import DataLoader
+from scripts.gru_processor import GRUPreprocessor
 from tensorflow.keras.layers import GRU, Dense
 from tensorflow.keras.models import Sequential, load_model
 

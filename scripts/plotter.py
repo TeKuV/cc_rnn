@@ -1,9 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from data_loader import DataLoader
-from gru_model import GRUPredictor
-from gru_processor import GRUPreprocessor
-from neural_prophet_model import NeuralProphetPredictor
+from scripts.data_loader import DataLoader
+from scripts.gru_model import GRUPredictor
+from scripts.gru_processor import GRUPreprocessor
+from scripts.neural_prophet_model import NeuralProphetPredictor
 
 
 class Plotter:

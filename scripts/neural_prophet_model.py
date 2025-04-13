@@ -1,5 +1,5 @@
 import logging
-from data_loader import DataLoader
+from scripts.data_loader import DataLoader
 from neuralprophet import NeuralProphet
 
 class NeuralProphetPredictor:
