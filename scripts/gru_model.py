@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from data_loader import DataLoader
 from gru_processor import GRUPreprocessor
 from tensorflow.keras.layers import GRU, Dense

@@ -1,7 +1,11 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from model import DataLoader, GRUPreprocessor, GRUPredictor, NeuralProphetPredictor
+from scripts.gru_model import GRUPredictor
+from scripts.data_loader import DataLoader
+from scripts.gru_processor import GRUPreprocessor
+from scripts.neural_prophet_model import NeuralProphetPredictor
+from scripts.plotter import Plotter
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import numpy as np
 import time
