@@ -23,24 +23,6 @@ jobs:
       # Étape 2 : Configure Python 3.11.5 dans l'environnement GitHub Actions 
       # pour installer et exécuter du code Python.
 
-    - name: Install Git LFS
-      run: |
-        git lfs install
-        git lfs fetch --all
-        git lfs checkout
-        git lfs pull
-      # Étape 2.1 : Installe Git LFS pour gérer les fichiers volumineux 
-      # (par exemple, les modèles de Machine Learning) stockés dans le dépôt.
-
-    - name: Verify LFS Checkout
-      run: |
-        echo "Listing data directory:"
-        ls -lh data/
-        echo "First 10 lines of diamonds.csv:"
-        head -n 10 data/diamonds.csv
-      # Étape 2.2 : Vérifie que les fichiers Git LFS ont été correctement récupérés 
-      # et peuvent être utilisés dans les étapes suivantes.
-
     - name: Install Hugging Face Hub
       run: pip install huggingface_hub
       # Étape 2.3 : Installer manuellement huggingface_hub pour les commandes subsequentes.
