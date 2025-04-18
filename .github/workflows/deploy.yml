@@ -46,7 +46,7 @@ jobs:
         api = HfApi(token='$HF_TOKEN'); \
 
         create_repo(
-            repo_id='TeKuV/cc_rnn',
+            repo_id='TeKuV/cc_rnn_2',
             repo_type='space',
             space_sdk='streamlit',
             exist_ok=True,
@@ -54,7 +54,7 @@ jobs:
         ); \
         api.upload_folder(
             folder_path='.', 
-            repo_id='TeKuV/cc_rnn', 
+            repo_id='TeKuV/cc_rnn_2', 
             repo_type='space', 
             commit_message='Auto-deploy from GitHub Actions'
         )"
